@@ -50,14 +50,6 @@ gulp.task("build:templates", function() {
 
 gulp.task("build", ["build:templates", "build:js:public", "build:js"]);
 
-gulp.task("devserver", ["nodemon"], function() {
-    browserSync.init(null, {
-        proxy: "localhost:3001",
-        browser: "google chrome",
-        port: 7000,
-    });
-});
-
 gulp.task("devserver", ["build"], function () {
     return nodemon({
         script: "dist/server.js",
