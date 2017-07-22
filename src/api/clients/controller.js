@@ -1,47 +1,33 @@
-import DB from "../../db";
+import db from "../../db/mongo";
 
-const collection = "clients";
+const COLLECTION = "clients";
 const clientController = {
     get(req, res) {
-        var db = new DB(collection)
-            .then(function(){
-                return db.findOne({id: req.params.id}).toArray();
-            })
+        return db.collection(COLLECTION).findOne({_id: db.objectID(req.params.id)}).toArray()
             .then(res.send)
             .catch(clientController.error.bind(clientController, res));
     },
 
     list(req, res) {
-        var db = new DB(collection)
-            .then(function(){
-                return db.find().toArray();
-            })
+        return db.collection(COLLECTION).find().toArray()
             .then(res.send)
             .catch(clientController.error.bind(clientController, res));
     },
 
     create(req, res) {
-        var db = new DB(collection)
-            .then(function(){
-                return db.insertOne(req.body.client);
-            })
+        return db.collection(COLLECTION).insertOne(req.body)
             .then(function(item){
                 res.send({
-                    id: item.id,
+                    id: item.insertedId,
                 });
             })
             .catch(clientController.error.bind(clientController, res));
     },
 
     update(req, res) {
-        var db = new DB(collection)
+        return db.collection(COLLECTION).updateOne({_id: db.objectID(req.params.id)}, req.body.client)
             .then(function(){
-                return db.updateOne({id: req.params.id}, req.body.client);
-            })
-            .then(function(item){
-                res.send({
-                    id: item.id,
-                });
+                res.status(200);
             })
             .catch(clientController.error.bind(clientController, res));
     },
