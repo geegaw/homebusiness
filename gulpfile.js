@@ -12,6 +12,21 @@ const concat = require("gulp-concat");
 const uglify = require("gulp-uglify");
 const vueify = require("vueify");
 const nodemon = require("gulp-nodemon");
+const sass = require("gulp-sass");
+const cleanCSS = require("gulp-clean-css");
+
+gulp.task("sass:watch", function () {
+    gulp.watch("./src/app/components/sass/**/*.scss", ["build:css"]);
+});
+
+gulp.task("build:css", function() {
+    return gulp.src("src/app/components/sass/app.scss")
+        .pipe(sourcemaps.init())
+        .pipe(sass().on("error", sass.logError))
+        .pipe(cleanCSS())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest("public/css"));
+});
 
 gulp.task("build:js", function() {
     return gulp.src("src/**/*.js")
@@ -44,13 +59,12 @@ gulp.task("build:js:public", function() {
 
 gulp.task("build:templates", function() {
     return gulp.src("src/app/components/templates/index.html")
-        .pipe(sourcemaps.init())
         .pipe(gulp.dest("public"));
 });
 
-gulp.task("build", ["build:templates", "build:js:public", "build:js"]);
+gulp.task("build", ["build:templates", "build:css", "build:js:public", "build:js"]);
 
-gulp.task("devserver", ["build"], function () {
+gulp.task("devserver", ["build", "sass:watch"], function () {
     return nodemon({
         script: "dist/server.js",
         watch: "src",

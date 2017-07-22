@@ -1,0 +1,22 @@
+.main-nav {
+    grid-area: nav;
+    border: 2px solid $primary-color;
+    padding: 1rem 2rem;
+
+    a {
+        color: $primary-color;
+        display: block;
+        padding: .5rem 0;
+        border-top: 1px solid $tertiary-color;
+        margin-top: .5rem;
+
+        &:first-child {
+            border-top: none;
+            margin-top: 0;
+        }
+
+        &.active {
+            color: $secondary-color;
+        }
+    }
+}
