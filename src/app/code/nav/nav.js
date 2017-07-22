@@ -28,9 +28,7 @@ export default Vue.component("main-nav", {
             }
             this.active = id;
             this.pages[id].isActive = true;
+            this.$emit("change:page", id);
         },
     },
-    components: {
-        navItem,
-    }
 });

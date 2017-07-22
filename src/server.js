@@ -5,8 +5,7 @@ import client from "./api/clients/router";
 
 const app = express();
 app.use(bodyParser.json());
-app.use("/api/client", client);
-app.use("/api/client", client);
+app.use("/api/clients", client);
 app.use("/public", express.static(path.join(__dirname, "/../public/")));
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname + "/../public/index.html"));
