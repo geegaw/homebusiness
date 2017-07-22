@@ -20,8 +20,12 @@ export default Vue.component("client-form", {
         save() {
             const method = this.id ? "put" : "post";
             const url = api.api.clients + (this.id ? "/" + this.id : "");
-            console.log("save", this.client, method, url);
-            axios[method](url, this.client).then(function(response){
+            let data = Object.assign({}, this.client);
+            if (!this.id) {
+                delete data.id;
+            }
+            console.log("save", data, method, url);
+            axios[method](url, data).then(function(response){
                 console.log(response);
             }).catch(console.error);
         },
