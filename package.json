@@ -10,6 +10,7 @@
   },
   "repository": "https://github.com/geegaw/homebusiness.git",
   "dependencies": {
+    "axios": "^0.16.2",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "mongodb": "^2.2.30",
