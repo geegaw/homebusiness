@@ -9,8 +9,14 @@ const clientController = {
     },
 
     list(req, res) {
-        return db.collection(COLLECTION).find().toArray()
-            .then(res.send)
+        return db.collection(COLLECTION).find().limit(10).toArray()
+            .then((results) => {
+                let byId = {};
+                results.forEach((result) => {
+                    byId[result._id] = result;
+                })
+                res.send(byId);
+            })
             .catch(clientController.error.bind(clientController, res));
     },
 
