@@ -1,0 +1,27 @@
+.clients {
+    display: grid;
+    grid-template-columns: 35% auto;
+    grid-template-areas: "list form";
+    grid-column-gap: 1rem;
+
+    ul {
+        grid-area: list;
+
+        li {
+            border-top: 1px solid $secondary-color;
+            padding: .5rem 0;
+            margin-top: .5rem;
+
+            &:first-child {
+                border-top: none;
+                margin-top: 0;
+            }
+        }
+    }
+
+    form {
+        grid-area: form;
+    }
+}
+
+

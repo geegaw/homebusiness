@@ -24,7 +24,7 @@ export default Vue.component("client-form", {
             if (!this.id) {
                 delete data.id;
             }
-            console.log("save", data, method, url);
+
             axios[method](url, data).then(function(response){
                 console.log(response);
             }).catch(console.error);
